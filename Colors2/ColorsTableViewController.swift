@@ -40,6 +40,9 @@ class ColorsTableViewController: UIViewController, UITableViewDataSource,UITable
             
         }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.isSelected = false
+    }
     /*
     // MARK: - Navigation
 
