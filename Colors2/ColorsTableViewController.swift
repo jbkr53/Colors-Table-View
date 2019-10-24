@@ -9,22 +9,36 @@
 import UIKit
 
 class ColorsTableViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
-    var Colors = ["red","orange","yellow","green","blue","purple","brown"]
+    
+    //var Colors = ["red","orange","yellow","green","blue","purple","brown"]
+    var colors = [Color(name: "red", color: UIColor.red), Color(name: "orange", color: UIColor.orange), Color(name: "yellow", color: UIColor.yellow), Color(name: "green", color: UIColor.green), Color(name: "blue", color: UIColor.blue), Color(name: "purple", color: UIColor.purple), Color(name: "brown", color: UIColor.brown)]
+    
+    @IBOutlet weak var colorsTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Colors"
         // Do any additional setup after loading the view.
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Colors.count
+        return colors.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "colorCell", for: indexPath)
-        cell.textLabel?.text = Colors[indexPath.row]
+        cell.textLabel?.text = colors[indexPath.row].name
+        cell.backgroundColor = colors[indexPath.row].color
         return cell
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? ColorDetailViewController,
+            let row = colorsTableView.indexPathForSelectedRow?.row
+            {
+            destination.color = colors[row]
+            
+            
+        }
     }
     /*
     // MARK: - Navigation
